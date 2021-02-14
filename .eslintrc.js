@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12
   },
+  plugins: ['only-warn'],
   rules: {
     quotes: [2, 'single'],
     semi: [2, 'always'],
