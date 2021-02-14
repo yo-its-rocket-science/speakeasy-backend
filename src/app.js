@@ -1,10 +1,10 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const firebase = require("./firebase/firebase")
+const firebase = require('./firebase/firebase');
 
-const db = firebase.database
-const authenticator = firebase.auth
+const db = firebase.database;
+const authenticator = firebase.auth;
 
 const usersRouter = require('./routes/users');
 
