@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/this-is-not-a-rocket-science/speakeasy-backend#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
