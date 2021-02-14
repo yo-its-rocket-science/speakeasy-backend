@@ -2,15 +2,17 @@ const firebase = require('firebase');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
 
+require('dotenv').config();
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://driven-origin-304722-default-rtdb.firebaseio.com'
 });
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDbNnjOPoUBprERhei--HQK8zCgbqfUhaM',
+  apiKey: process.env.fireApiKey,
   authDomain: 'driven-origin-304722.firebaseapp.com',
-  databaseURL: 'https://driven-origin-304722-default-rtdb.firebaseio.com',
+  databaseURL: process.env.databaseURL,
   projectId: 'driven-origin-304722',
   storageBucket: 'driven-origin-304722.appspot.com',
   messagingSenderId: '705209892042',
