@@ -25,6 +25,16 @@ app.get('/users', async (req, res) => {
   res.status(200).send({ result: result });
 });
 
+app.get('/user/:id', async (req, res) => {
+  let user = db.collection("users").doc(`${req.params.id}`);
+  let doc = await user.get();
+  if (!doc.exists) {
+    res.status(400).send({ error: "user not found!" });
+  } else {
+    res.status(200).send({ result: doc.data() });
+  }
+});
+
 app.post('/createUser', async (req, res) => {
   console.log(req.body)
   if (!(('name' in req.body) && ('email' in req.body))){
