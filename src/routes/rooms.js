@@ -23,7 +23,7 @@ app.get('/getRooms', async (req, res) => {
 });
 
 app.post('/addRoom', async (req, res) => {
-  if (!(('roomName' in req.body) && ('roomDescription' in req.body))) {
+  if (!('roomName' in req.body && 'roomDescription' in req.body)) {
     res.status(400).send({ error: 'body incorrect' });
     return;
   }
@@ -57,17 +57,20 @@ app.post('/deleteRoom', async (req, res) => {
 
   try {
     const roomID = req.body.roomID;
-    const room = await db
-      .collection('rooms')
-      .doc(roomID)
-      .delete();
+    const doc = await db.collection('rooms').doc(roomID).get();
 
-    console.log(`Removed room ${roomID}`);
-    res.status(200).send({
-      result: {
-        id: room.id
-      }
-    });
+    if (!doc.exists) {
+      console.log('Unable to find room to delete');
+      res.status(400).send({ error: 'room not found' });
+    } else {
+      const room = await db.collection('rooms').doc(roomID).delete();
+      console.log(`Removed room ${roomID}`);
+      res.status(200).send({
+        result: {
+          id: room.id
+        }
+      });
+    }
   } catch (error) {
     console.log(`error: ${error}`);
   }
@@ -81,9 +84,7 @@ app.post('/startRoom', async (req, res) => {
 
   try {
     const roomID = req.body.roomID;
-    const room = await db
-      .collection('rooms')
-      .doc(roomID);
+    const room = db.collection('rooms').doc(roomID);
     await room.update({ isLive: true });
     console.log(`Room is now live ${roomID}`);
     res.status(200).send({
