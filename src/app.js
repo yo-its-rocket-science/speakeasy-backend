@@ -7,6 +7,7 @@ const db = firebase.database;
 const authenticator = firebase.auth;
 
 const usersRouter = require('./routes/users');
+const roomsRoutes = require('./routes/rooms');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', usersRouter);
+app.use('/rooms', roomsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
