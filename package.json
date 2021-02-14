@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix --ext .js ./src"
+    "lint": "eslint --fix --ext .js ./src",
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "firebase-admin": "^9.5.0",
     "http-errors": "^1.8.0",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
     "pg": "^8.5.1"
   },
   "devDependencies": {
