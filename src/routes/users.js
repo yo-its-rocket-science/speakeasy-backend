@@ -25,4 +25,29 @@ app.get('/users', async (req, res) => {
   res.status(200).send({ result: result });
 });
 
+app.post('/createUser', async (req, res) => {
+  console.log(req.body)
+  if (!(('name' in req.body) && ('email' in req.body))){
+    res.status(400).send({ error: "wrong body!" });
+    return
+  }
+
+  try {
+    const ref = await db
+    .collection("users")
+    .add({ name: req.body.name, email: req.body.email })
+    console.log(`success: ${ref.id}`);
+    res.status(200).send({ 
+      result: { 
+        id: ref.id,  
+        name: req.body.name,
+        email: req.body.email,
+      } 
+    });
+  }catch(error) {
+    console.log(`Error: ${error}`);
+      res.status(400).send({ error: error });
+  }
+});
+
 module.exports = app;
